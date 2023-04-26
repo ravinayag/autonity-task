@@ -1,0 +1,25 @@
+version: "3.4"
+
+services:
+  autonity:
+    image: ghcr.io/autonity/autonity:latest
+    env_file:
+      - .env
+    command: ["--piccadilly",
+              "--datadir=/autonity-chaindata",
+              "--http",
+              "--http.addr=0.0.0.0",
+              "--http.api=aut,eth,net,txpool,web3,admin",
+              "--http.vhosts=*",
+              "--ws",
+              "--ws.addr=0.0.0.0",
+              "--ws.api=aut,eth,net,txpool,web3,admin",
+              "--nat=extip:{IP}"]
+    ports:
+      - 8545:8545
+      - 8546:8546
+      - 30303:30303
+      - 30303:30303/udp
+      - 6060:6060
+    volumes:
+      - ./autonity-chaindata:/autonity-chaindata
